@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Borrow Book List{% endblock %}
+{% load tz %}
+{% block content %}
+
+<div class="content_container">
+    <div class="top_content">
+        <div>
+            
+        </div>
+        <div class="search_bar">
+            <form method="GET" action="{% url 'borrwed_book_list' %}">
+                <input type="text" name="q" placeholder="Search books..." value="{{ query }}">
+                <button type="submit" class="btn">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <table>
+        <tr>
+            <th>Profile</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Cover</th>
+            <th>Title</th>
+            <th>ISBN</th>
+            <th>Borrwed Date</th>
+            <th>Return Date</th>
+            <th>Actions</th>
+        </tr>
+        {% for borrwed_book in borrwed_books %}
+        {% if not borrwed_book.is_returned %}
+            <tr>
+
+            <td>
+                {% if borrwed_book.member.member_image %}
+                    <img src="{{ borrwed_book.member.member_image.url }}" alt="{{ book.title }}" width="80" style= "display:block; margin: 0 auto;"/>
+                {% else %}
+                    No Image
+                {% endif %}
+            </td>
+
+            <td>{{ borrwed_book.member.name }}</td>
+            <td>{{ borrwed_book.member.email }}</td>
+
+            <td>
+                {% if borrwed_book.book.cover_image %}
+                    <img src="{{ borrwed_book.book.cover_image.url }}" alt="{{ book.title }}" width="80" style= "display:block; margin: 0 auto;"/>
+                {% else %}
+                    No Image
+                {% endif %}
+            </td>
+
+            <td>{{ borrwed_book.book.title }}</td>
+            <td>{{ borrwed_book.book.isbn }}</td>
+            <td>{{ borrwed_book.borrow_date }}</td>
+            <td>
+                {% if borrwed_book.return_date %}
+                    {{ borrwed_book.return_date }}
+                    {% if not borrwed_book.is_returned and borrwed_book.return_date < today %}
+                        <br><span style="color: red;" >Expired</span>
+                    {% endif %}
+                {% else %}
+                    Not Set
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'return_receive' borrwed_book.id %}" class="btn-delete">Recive Returned</a>
+
+            </td>
+        {% endif %}
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" style="text-align: center;">No borrow list found</td></tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

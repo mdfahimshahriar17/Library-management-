@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Book{% endblock %}
+
+{% block content %}
+<div class="form_container">
+    <form method="POST" enctype="multipart/form-data" class="for-form">
+       {% csrf_token %}
+       {{ form.as_p }}
+       <button type="submit" class="btn">Update Book</button>
+    </form>
+    <a href="{% url 'book_list' %}">Back to Book List</a>
+</div>
+{% endblock %}

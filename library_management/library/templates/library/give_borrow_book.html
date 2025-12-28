@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Giv Borrow Book{% endblock %}
+
+{% block content %}
+<div class="form_container">
+    <h2>Give Borrow a Book</h2>
+    <form method="POST" class="for-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Save Record</button>
+    </form>
+</div>
+{% endblock %}

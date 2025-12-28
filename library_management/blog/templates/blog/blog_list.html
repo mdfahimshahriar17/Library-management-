@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %} 
+    <div class="card">
+        {% for blog in blogs %}
+        <div class="user-info">
+        <span class="username">DIA Library</span>
+  
+        </div>
+
+        <div class="image-container">
+            {% if blog.image %}
+                <img src="{{ blog.image.url }}" alt="Blog image">
+            {% else %}
+                No Image
+            {% endif %}
+        </div>
+    
+        <div class="card-content">
+            <h2 class="post-title">{{ blog.title }}</h2>
+            <p class="post-excerpt"> {{ blog.content }}</p>
+            <span>{{ blog.created_at }}</span>
+            {% if user.is_authenticated %}
+            <div>
+            <a href="{% url 'edit_blog' blog.pk %}" >✏️ Edit</a>
+            <a href="{% url 'delete_blog' blog.pk %}">🗑️ Delete</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="actions">
+            <button class="share">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://yourwebsite.com" 
+   target="_blank">🔗 Share</a>
+                
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+

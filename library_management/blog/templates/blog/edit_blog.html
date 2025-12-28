@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Blog{% endblock %}
+
+{% block content %}
+<div class="form_container">
+    <form method="POST" enctype="multipart/form-data" class="for-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Update Blog</button>
+    </form>
+    <a href="{% url 'blog_list' %}">Back to blog List</a>
+</div>
+{% endblock %}

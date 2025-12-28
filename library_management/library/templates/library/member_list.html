@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Member List{% endblock %}
+
+{% block content %}
+<div class="content_container">
+    <div class="top_content">
+        <div>
+            <a href="{% url 'add_member' %}" class="btn">+ Add New Member</a>
+        </div>
+        <div class="search_bar">
+            <form method="GET" action="{% url 'member_list' %}">
+                <input type="text" name="q" placeholder="Search Members..." value="{{ query }}">
+                <button type="submit" class="btn">Search</button>
+            </form>
+        </div>
+    </div>
+    
+
+    <table>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Join Date</th>
+            <th>Actions</th>
+        </tr>
+        {% for member in members %}
+
+        <tr>
+            <td>
+                {% if member.member_image %}
+                    <img src="{{ member.member_image.url }}" alt="{{ member.name }}" width="80" style=" display: block; margin: 0 auto;">
+                    <!-- Image tag visit korte url likhte hoy -->
+                {% else %}
+                    No Image
+                {% endif %}
+            </td>
+            <td>{{ member.name }}</td>
+            <td>{{ member.email }}</td>
+            <td>{{ member.phone }}</td>
+            <td>{{ member.joined_date }}</td>
+            <td>
+                <a href="{% url 'edit_member' member.pk %}" class="btn-edit">Edit</a>
+                <a href="{% url 'delete_member' member.pk %}" class="btn-delete">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" style="text-align: center;">No Members found</td></tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+
+
+
+
+
+{% endblock %}
