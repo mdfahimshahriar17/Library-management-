@@ -113,7 +113,7 @@ All images are stored in the **MEDIA** directory using Django’s `ImageField`.
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Backend:** Django (Python)
 - **Database:** SQLite (default Django database)
@@ -122,7 +122,7 @@ All images are stored in the **MEDIA** directory using Django’s `ImageField`.
 
 ---
 
-## 🧠 What I Practiced / Learned
+## What I Practiced / Learned
 
 - Django Models, Views, Templates (MVT pattern)
 - CRUD operations (Create, Read, Update, Delete)
